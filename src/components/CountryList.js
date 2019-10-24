@@ -1,59 +1,58 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { selectCountries } from "../selectors";
-import CountryItem from "./CountryItem";
-import Nav from "./Nav";
-import { deleteCountry } from "../actions";
-import queryString from "query-string";
-
-var tabToCompare = [];
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { selectCountries } from '../selectors';
+import CountryItem from './CountryItem';
+import Nav from './Nav';
+import { deleteCountry } from '../actions';
+import queryString from 'query-string';
 
 const mapStateToProps = state => ({
-  countries: selectCountries(state)
+  countries: selectCountries(state),
 });
 
 const mapDispatchToProps = {
-  deleteCountry
+  deleteCountry,
 };
 
 class CountryList extends React.Component {
-  state = {
-    countriesToCompare: []
-  };
+  toggleCountryCompare = countryId => {
+    // this.setState(prevState => {
+    //   if (prevState.countriesToCompare.indexOf(countryId) === -1) {
+    //     return {
+    //       countriesToCompare: [...prevState.countriesToCompare, countryId],
+    //     };
+    //   } else {
+    //     return {
+    //       countriesToCompare: prevState.countriesToCompare.filter(id => {
+    //         return id !== countryId;
+    //       }),
+    //     };
+    //   }
+    // });
 
-  compareCountries = (e, countryId, countryName) => {
-    if (e.target.checked) {
-      // tabToCompare.push({
-      //   id: countryId,
-      //   name: countryName
-      // });
-      tabToCompare.push(countryId);
+    if (this.state.countriesToCompare.indexOf(countryId) === -1) {
       this.setState({
-        countriesToCompare: tabToCompare
+        countriesToCompare: [...this.state.countriesToCompare, countryId],
       });
     } else {
-      tabToCompare = tabToCompare.filter(id => {
-        return id !== countryId;
-      });
       this.setState({
-        countriesToCompare: tabToCompare
+        countriesToCompare: this.state.countriesToCompare.filter(id => {
+          return id !== countryId;
+        }),
       });
     }
-    //console.log("tab to compare : ", tabToCompare);
-
-    // for (var i = 0; i < tabToCompare.length; i++) {
-    //   urlCountries = urlCountries + "item" + i + "=" + tabToCompare[i].id + "&";
-    // }
-    // console.log(urlCountries);
-
-    /////////// npm query string : use stringify pour generer une url et la passer au bouton compare : queryString.stringify({foo: [1, 2, 3]}) et utiliser .parse() pour generer un tableau à partir de la string;
-    //let urlCountries = queryString.stringify({ countries: tabToCompare });
-    //console.log(urlCountries);
   };
 
   render() {
-    const urlCompare = queryString.stringify({ country: this.state.countriesToCompare });
+    const urlParams = this.props.location.search.substring(1);
+    let idsToCompare = queryString.parse(urlParams).country || [];
+    if (typeof idsToCompare === 'string') {
+      idsToCompare = [idsToCompare];
+    }
+    const urlCompare = queryString.stringify({ country: idsToCompare });
+
+    console.log(idsToCompare);
 
     return (
       <React.Fragment>
@@ -74,19 +73,20 @@ class CountryList extends React.Component {
                       key={country.id}
                       country={country}
                       handleDelete={this.props.deleteCountry}
-                      compare={this.compareCountries}
+                      selectedCountries={idsToCompare}
+                      selected={idsToCompare.indexOf(country.id) >= 0}
+                      history={this.props.history}
                     />
                   );
                 })}
               </ul>
             )}
-            Countries to compare : {this.state.countriesToCompare.length}
+            Countries to compare : {idsToCompare.length}
             <ul>
-              {this.state.countriesToCompare &&
-                this.state.countriesToCompare.map((val, index) => {
-                  //return <li key={index}>{val.name.toLowerCase()}</li>;
-                  return <li key={index}>{val}</li>;
-                })}
+              {idsToCompare.map((val, index) => {
+                //return <li key={index}>{val.name.toLowerCase()}</li>;
+                return <li key={index}>{val}</li>;
+              })}
             </ul>
             <div>url : /countries/compare?{urlCompare}</div>
             {/* this.state.countriesToCompare.length */}

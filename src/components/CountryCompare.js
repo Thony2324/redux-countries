@@ -1,18 +1,24 @@
-import React from "react";
-import Nav from "./Nav";
-import { connect } from "react-redux";
+import React from 'react';
+import Nav from './Nav';
+import { connect } from 'react-redux';
 //import { getInfosCountryById } from "../selectors";
-import { Link } from "react-router-dom";
-import queryString from "query-string";
+import { Link } from 'react-router-dom';
+import queryString from 'query-string';
 
 const mapStateToProps = (state, ownProps) => {
   const urlParams = ownProps.location.search.substring(1);
-  const idsToCompare = queryString.parse(urlParams);
-  console.log("Ids to compare : ", idsToCompare.country);
-  console.log("Liste des pays (state) : ", state.countries);
+  const idsToCompare = queryString.parse(urlParams).country || [];
+  console.log('Ids to compare : ', idsToCompare.country);
+  console.log('Liste des pays (state) : ', state.countries);
   return {
     listCountries: state.countries,
-    idsToCompare: idsToCompare.country
+    idsToCompare: idsToCompare,
+    camparingCountries: idsToCompare
+      .map(countryId => {
+        return state.countries.find(c => c.id === countryId);
+      })
+      .filter(v => v !== undefined),
+
     //country: getInfosCountryById(state, id)
   };
 };
@@ -30,6 +36,8 @@ class CountryCompare extends React.Component {
   // };
 
   render() {
+    console.log(this.props);
+
     return (
       <React.Fragment>
         <Nav currentRoute="countries" />
@@ -41,14 +49,14 @@ class CountryCompare extends React.Component {
                 <tr>
                   <th></th>
                   {/* {console.log("info country : ", )} */}
-                  {this.props.idsToCompare.map((idCountry, index) => {
-                    const indexCountryToShow = this.props.listCountries.findIndex(item => item.id === idCountry);
+                  {this.props.camparingCountries.map((country, index) => {
+                    // const indexCountryToShow = this.props.listCountries.findIndex(item => item.id === idCountry);
                     return (
                       <th key={index}>
-                        {idCountry}
+                        {country.name}
                         <br />
                         infos...
-                        {this.props.listCountries[indexCountryToShow]}
+                        {/* {this.props.listCountries[indexCountryToShow]} */}
                         {/* {this.props.getInfosCountryById(this.props.state, val)} */}
                       </th>
                     );
@@ -79,7 +87,10 @@ class CountryCompare extends React.Component {
                 </tr>
               </tbody>
             </table>
-            <Link to="/countries" className="uk-button uk-button-primary uk-margin-large-top">
+            <Link
+              to={`/countries${this.props.location.search}`}
+              className="uk-button uk-button-primary uk-margin-large-top"
+            >
               Back
             </Link>
           </div>

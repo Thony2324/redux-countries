@@ -1,44 +1,44 @@
-import cuid from "cuid";
-import slugify from "slugify";
-import { ADD_COUNTRY, EDIT_COUNTRY, DELETE_COUNTRY } from "../../actions";
+// import cuid from 'cuid';
+import slugify from 'slugify';
+import { ADD_COUNTRY, EDIT_COUNTRY, DELETE_COUNTRY } from '../../actions';
 
 //const initialState = [];
 const initialState = [
   {
-    id: slugify("Thailande-" + cuid.slug(), { lower: true }),
-    name: "Thailande",
-    currency: "Baht",
+    id: slugify('Thailande-236', { lower: true }),
+    name: 'Thailande',
+    currency: 'Baht',
     visa: false,
-    jetlag: 4
+    jetlag: 4,
   },
   {
-    id: slugify("Mexique-" + cuid.slug(), { lower: true }),
-    name: "Mexique",
-    currency: "Pesos",
+    id: slugify('Mexique-2576', { lower: true }),
+    name: 'Mexique',
+    currency: 'Pesos',
     visa: false,
-    jetlag: 6
+    jetlag: 6,
   },
   {
-    id: slugify("Martinique-" + cuid.slug(), { lower: true }),
-    name: "Martinique",
-    currency: "Euro",
+    id: slugify('Martinique-2Jdd56', { lower: true }),
+    name: 'Martinique',
+    currency: 'Euro',
     visa: false,
-    jetlag: 6
+    jetlag: 6,
   },
   {
-    id: slugify("Brésil-" + cuid.slug(), { lower: true }),
-    name: "Brésil",
-    currency: "Real",
+    id: slugify('Brésil-o954gs', { lower: true }),
+    name: 'Brésil',
+    currency: 'Real',
     visa: false,
-    jetlag: 5
+    jetlag: 5,
   },
   {
-    id: slugify("Inde-" + cuid.slug(), { lower: true }),
-    name: "Inde",
-    currency: "Roupie",
+    id: slugify('Inde-3445', { lower: true }),
+    name: 'Inde',
+    currency: 'Roupie',
     visa: true,
-    jetlag: 3
-  }
+    jetlag: 3,
+  },
 ];
 
 export const countriesReducer = (state = initialState, action) => {
