@@ -5,9 +5,9 @@ import { selectCountries } from "../selectors";
 import CountryItem from "./CountryItem";
 import Nav from "./Nav";
 import { deleteCountry } from "../actions";
+import queryString from "query-string";
 
 var tabToCompare = [];
-//var urlCountries = "";
 
 const mapStateToProps = state => ({
   countries: selectCountries(state)
@@ -24,15 +24,18 @@ class CountryList extends React.Component {
 
   compareCountries = (e, countryId, countryName) => {
     if (e.target.checked) {
-      tabToCompare.push({
-        id: countryId,
-        name: countryName
-      });
+      // tabToCompare.push({
+      //   id: countryId,
+      //   name: countryName
+      // });
+      tabToCompare.push(countryId);
       this.setState({
         countriesToCompare: tabToCompare
       });
     } else {
-      tabToCompare = tabToCompare.filter(item => item.id !== countryId);
+      tabToCompare = tabToCompare.filter(id => {
+        return id !== countryId;
+      });
       this.setState({
         countriesToCompare: tabToCompare
       });
@@ -45,9 +48,13 @@ class CountryList extends React.Component {
     // console.log(urlCountries);
 
     /////////// npm query string : use stringify pour generer une url et la passer au bouton compare : queryString.stringify({foo: [1, 2, 3]}) et utiliser .parse() pour generer un tableau à partir de la string;
+    //let urlCountries = queryString.stringify({ countries: tabToCompare });
+    //console.log(urlCountries);
   };
 
   render() {
+    const urlCompare = queryString.stringify({ country: this.state.countriesToCompare });
+
     return (
       <React.Fragment>
         <Nav currentRoute="countries" />
@@ -73,20 +80,19 @@ class CountryList extends React.Component {
                 })}
               </ul>
             )}
-            Countries to compare (max 3) : {this.state.countriesToCompare.length}
+            Countries to compare : {this.state.countriesToCompare.length}
             <ul>
               {this.state.countriesToCompare &&
                 this.state.countriesToCompare.map((val, index) => {
-                  return <li key={index}>{val.name.toLowerCase()}</li>;
+                  //return <li key={index}>{val.name.toLowerCase()}</li>;
+                  return <li key={index}>{val}</li>;
                 })}
             </ul>
-            {this.state.countriesToCompare.length > 0 && this.state.countriesToCompare.length < 4 ? (
-              <Link to="/countries/compare" className="uk-button uk-button-primary">
-                <span data-uk-icon="icon: list; ratio: 0.8"></span> Compare
-              </Link>
-            ) : (
-              ""
-            )}
+            <div>url : /countries/compare?{urlCompare}</div>
+            {/* this.state.countriesToCompare.length */}
+            <Link to={`/countries/compare?${urlCompare}`} className="uk-button uk-button-primary">
+              <span data-uk-icon="icon: list; ratio: 0.8"></span> Compare
+            </Link>
           </div>
         </div>
       </React.Fragment>

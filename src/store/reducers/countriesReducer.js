@@ -5,7 +5,7 @@ import { ADD_COUNTRY, EDIT_COUNTRY, DELETE_COUNTRY } from "../../actions";
 //const initialState = [];
 const initialState = [
   {
-    id: slugify("Ile Maurice-" + cuid.slug(), { lower: true }),
+    id: slugify("Thailande-" + cuid.slug(), { lower: true }),
     name: "Thailande",
     currency: "Baht",
     visa: false,
