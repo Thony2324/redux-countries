@@ -53,7 +53,7 @@ class CountryList extends React.Component {
         <Nav currentRoute="countries" />
         <div className="uk-section uk-section-default">
           <div className="uk-container">
-            <h1 className="uk-heading-medium uk-heading-bullet uk-margin-xlarge-bottom">Countries</h1>
+            <h1 className="uk-heading-medium uk-heading-bullet uk-margin-xlarge-bottom">List of countries</h1>
             <Link to="/countries/add" className="uk-button uk-button-primary uk-margin-large-bottom">
               <span data-uk-icon="icon: plus; ratio: 0.8"></span> Add a country
             </Link>
