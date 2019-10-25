@@ -7,7 +7,13 @@ export function selectCountryById(state, id) {
   return detailCountry;
 }
 
-// export function getInfosCountryById(state, id) {
-//   const infosCountry = state.countries.map().filter(d => d.id === id);
-//   return infosCountry;
+// export function getInfosCountriesToCompare(state, tab) {
+//   //console.log("tab : ", tab);
+//   //console.log("state.countries : ", state.countries);
+//   tab.map(countryId => {
+//     //console.log(countryId);
+//     const infoCountry = state.countries.find(c => c.id === countryId);
+//     //console.log(infoCountry);
+//     return infoCountry;
+//   });
 // }

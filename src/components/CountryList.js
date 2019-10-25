@@ -7,8 +7,6 @@ import Nav from "./Nav";
 import { deleteCountry } from "../actions";
 import queryString from "query-string";
 
-var tabToCompare = [];
-
 const mapStateToProps = state => ({
   countries: selectCountries(state)
 });
@@ -22,38 +20,25 @@ class CountryList extends React.Component {
     countriesToCompare: []
   };
 
-  compareCountries = (e, countryId, countryName) => {
-    if (e.target.checked) {
-      // tabToCompare.push({
-      //   id: countryId,
-      //   name: countryName
-      // });
-      tabToCompare.push(countryId);
+  toggleCheckboxCountry = countrySlug => {
+    const stateCountriesToCompare = this.state.countriesToCompare;
+    if (!stateCountriesToCompare.includes(countrySlug)) {
       this.setState({
-        countriesToCompare: tabToCompare
+        countriesToCompare: [...stateCountriesToCompare, countrySlug] // permet de décomposer le tableau stateCountriesToCompare en élément de tableau
       });
     } else {
-      tabToCompare = tabToCompare.filter(id => {
-        return id !== countryId;
-      });
       this.setState({
-        countriesToCompare: tabToCompare
+        countriesToCompare: stateCountriesToCompare.filter(slug => {
+          return slug !== countrySlug;
+        })
       });
     }
-    //console.log("tab to compare : ", tabToCompare);
-
-    // for (var i = 0; i < tabToCompare.length; i++) {
-    //   urlCountries = urlCountries + "item" + i + "=" + tabToCompare[i].id + "&";
-    // }
-    // console.log(urlCountries);
-
-    /////////// npm query string : use stringify pour generer une url et la passer au bouton compare : queryString.stringify({foo: [1, 2, 3]}) et utiliser .parse() pour generer un tableau à partir de la string;
-    //let urlCountries = queryString.stringify({ countries: tabToCompare });
-    //console.log(urlCountries);
   };
 
   render() {
-    const urlCompare = queryString.stringify({ country: this.state.countriesToCompare });
+    //console.log("State global : ", this.props.countries);
+    //console.log("countriesToCompare : ", this.state.countriesToCompare);
+    const urlCompare = queryString.stringify({ s: this.state.countriesToCompare });
 
     return (
       <React.Fragment>
@@ -64,8 +49,19 @@ class CountryList extends React.Component {
             <Link to="/countries/add" className="uk-button uk-button-primary uk-margin-large-bottom">
               <span data-uk-icon="icon: plus; ratio: 0.8"></span> Add a country
             </Link>
+
+            <div className="uk-margin">
+              Check below to compare (max 3 countries) :{" "}
+              <span className="uk-badge">{this.state.countriesToCompare.length}</span>
+            </div>
+
             {this.props.countries.length === 0 ? (
-              <p>No countries !</p>
+              <div className="uk-alert-warning" data-uk-alert>
+                <p>
+                  There are no countries ! <br />
+                  Please add one.
+                </p>
+              </div>
             ) : (
               <ul className="uk-list uk-list-divider">
                 {this.props.countries.map(country => {
@@ -74,22 +70,12 @@ class CountryList extends React.Component {
                       key={country.id}
                       country={country}
                       handleDelete={this.props.deleteCountry}
-                      compare={this.compareCountries}
+                      toggleCheckbox={this.toggleCheckboxCountry}
                     />
                   );
                 })}
               </ul>
             )}
-            Countries to compare : {this.state.countriesToCompare.length}
-            <ul>
-              {this.state.countriesToCompare &&
-                this.state.countriesToCompare.map((val, index) => {
-                  //return <li key={index}>{val.name.toLowerCase()}</li>;
-                  return <li key={index}>{val}</li>;
-                })}
-            </ul>
-            <div>url : /countries/compare?{urlCompare}</div>
-            {/* this.state.countriesToCompare.length */}
             <Link to={`/countries/compare?${urlCompare}`} className="uk-button uk-button-primary">
               <span data-uk-icon="icon: list; ratio: 0.8"></span> Compare
             </Link>
