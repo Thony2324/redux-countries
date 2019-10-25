@@ -50,11 +50,10 @@ class CountryForm extends React.Component {
         <Nav currentRoute="countries" />
         <div className="uk-section uk-section-default">
           <div className="uk-container">
-            <h1 className="uk-heading-medium uk-heading-bullet uk-margin-xlarge-bottom">
+            <h1 className="uk-heading-medium uk-heading-bullet uk-margin-large-bottom">
               {this.props.match.params.id !== undefined ? "Edit a country" : "Add a country"}
             </h1>
             <form>
-              <div className="uk-margin">{this.props.match.params.id}</div>
               <div className="uk-margin">
                 <input
                   type="text"
@@ -143,7 +142,7 @@ class CountryForm extends React.Component {
                 }}>
                 {this.props.match.params.id !== undefined ? "Edit" : "Add"}
               </button>
-              <Link to="/countries" className="uk-button uk-button-secondary uk-margin-left">
+              <Link to="/countries" className="uk-button uk-button-default uk-margin-left">
                 Cancel
               </Link>
             </form>

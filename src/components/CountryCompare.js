@@ -6,17 +6,16 @@ import queryString from "query-string";
 
 const mapStateToProps = (state, ownProps) => {
   const urlParams = ownProps.location.search.substring(1);
-  const idsToCompare = queryString.parse(urlParams).s || []; // si aucun param, on initialise un tableau vide
-  //console.log("Ids to compare : ", idsToCompare);
-  //console.log("Liste des pays (state) : ", state.countries);
+  let idsToCompare = queryString.parse(urlParams).s || []; // si aucun param, on initialise un tableau vide
+  // Si un seul pays coché, cela renvoie une string donc on teste le type (typeof) et on crée un tableau avec la string
+  if (typeof idsToCompare === "string") {
+    idsToCompare = [idsToCompare];
+  }
   return {
-    stateCountries: state.countries,
-    idsToCompare: idsToCompare,
     // TODO : faire un selector
     comparingCountries: idsToCompare
       .map(countrySlug => {
         const infoCountry = state.countries.find(c => c.slug === countrySlug);
-        //console.log(infoCountry);
         return infoCountry;
       })
       .filter(v => v !== undefined) // permet de vérifier si l'objet renvoyé par rapport à l'id est undefined ou non, et si c'est undefined, ça le supprime du résultat pour ne pas l'afficher
@@ -25,7 +24,6 @@ const mapStateToProps = (state, ownProps) => {
 
 class CountryCompare extends React.Component {
   render() {
-    //console.log("comparingCountries : ", this.props.comparingCountries);
     return (
       <React.Fragment>
         <Nav currentRoute="countries" />

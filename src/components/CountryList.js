@@ -36,8 +36,6 @@ class CountryList extends React.Component {
   };
 
   render() {
-    //console.log("State global : ", this.props.countries);
-    //console.log("countriesToCompare : ", this.state.countriesToCompare);
     const urlCompare = queryString.stringify({ s: this.state.countriesToCompare });
 
     return (
@@ -45,13 +43,15 @@ class CountryList extends React.Component {
         <Nav currentRoute="countries" />
         <div className="uk-section uk-section-default">
           <div className="uk-container">
-            <h1 className="uk-heading-medium uk-heading-bullet uk-margin-xlarge-bottom">List of countries</h1>
-            <Link to="/countries/add" className="uk-button uk-button-primary uk-margin-large-bottom">
-              <span data-uk-icon="icon: plus; ratio: 0.8"></span> Add a country
-            </Link>
+            <h1 className="uk-heading-medium uk-heading-bullet uk-margin-large-bottom">
+              List of countries
+              <Link to="/countries/add" className="uk-button uk-button-primary uk-float-right uk-margin-top">
+                Add a country
+              </Link>
+            </h1>
 
             <div className="uk-margin">
-              Check below to compare (max 3 countries) :{" "}
+              Check below to compare (max 4 countries) :{" "}
               <span className="uk-badge">{this.state.countriesToCompare.length}</span>
             </div>
 
@@ -76,9 +76,33 @@ class CountryList extends React.Component {
                 })}
               </ul>
             )}
-            <Link to={`/countries/compare?${urlCompare}`} className="uk-button uk-button-primary">
-              <span data-uk-icon="icon: list; ratio: 0.8"></span> Compare
+
+            <Link
+              to={`/countries/compare?${urlCompare}`}
+              className={
+                "uk-button uk-button-primary uk-margin-small-right " +
+                (this.state.countriesToCompare.length < 2 || this.state.countriesToCompare.length > 4
+                  ? "disabled-link"
+                  : "")
+              }>
+              Compare
             </Link>
+
+            {this.state.countriesToCompare.length === 1 ? (
+              <div className="uk-alert-warning" data-uk-alert>
+                You must choose at least 2 countries to compare !
+              </div>
+            ) : (
+              ""
+            )}
+
+            {this.state.countriesToCompare.length > 4 ? (
+              <div className="uk-alert-warning" data-uk-alert>
+                You must choose max 4 countries to compare !
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </React.Fragment>

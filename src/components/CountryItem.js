@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Country = ({ country, handleDelete, toggleCheckbox, selectedCountries, selected, history }) => {
+const Country = ({ country, handleDelete, toggleCheckbox, selected }) => {
   return (
     <li>
       <input
@@ -9,7 +9,6 @@ const Country = ({ country, handleDelete, toggleCheckbox, selectedCountries, sel
         type="checkbox"
         checked={selected}
         onChange={() => {
-          //toggleCheckbox(country.id);
           toggleCheckbox(country.slug);
         }}
       />
@@ -32,8 +31,6 @@ const Country = ({ country, handleDelete, toggleCheckbox, selectedCountries, sel
         data-uk-tooltip="title: See detail">
         <span data-uk-icon="icon: search; ratio: 1"></span>
       </Link>
-      <span className="uk-float-right uk-margin-xlarge-right">{country.id}</span>
-      <span className="uk-float-right uk-margin-xlarge-right">{country.slug}</span>
     </li>
   );
 };

@@ -7,6 +7,11 @@ export function selectCountryById(state, id) {
   return detailCountry;
 }
 
+export function getNbCountry(state) {
+  const nbCountries = state.countries.length;
+  return nbCountries;
+}
+
 // export function getInfosCountriesToCompare(state, tab) {
 //   //console.log("tab : ", tab);
 //   //console.log("state.countries : ", state.countries);
