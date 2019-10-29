@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./Home";
-import CountryList from "./CountryList";
-import CountryDetail from "./CountryDetail";
+import CountryList from "./countries/CountryList";
+import CountryDetail from "./countries/CountryDetail";
 import NoMatch from "./NoMatch";
-import CountryForm from "./CountryForm";
-import CountryCompare from "./CountryCompare";
-import LangList from "./LangList";
+import CountryForm from "./countries/CountryForm";
+import CountryCompare from "./countries/CountryCompare";
+import LangList from "./countries/LangList";
 
 class App extends React.Component {
   render() {

@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { selectCountryById, selectLangById } from "../selectors";
+import { selectCountryById, selectLangById } from "../../selectors";
 import { Redirect } from "react-router-dom";
-import Nav from "./Nav";
+import Nav from "../Nav";
 
 const mapStateToProps = (state, ownProps) => {
   return {

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { selectLanguages } from "../selectors";
-import Nav from "./Nav";
+import { selectLanguages } from "../../selectors";
+import Nav from "../Nav";
 
 const mapStateToProps = state => ({
   languages: selectLanguages(state)

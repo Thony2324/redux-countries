@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import Nav from "./Nav";
-import { selectCountryById, selectLanguages } from "../selectors";
-import { addCountry, editCountry } from "../actions";
+import Nav from "../Nav";
+import { selectCountryById, selectLanguages } from "../../selectors";
+import { addCountry, editCountry } from "../../actions";
 import cuid from "cuid";
 import { Link } from "react-router-dom";
 import slugify from "slugify";

@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { selectCountries } from "../selectors";
+import { selectCountries } from "../../selectors";
 import CountryItem from "./CountryItem";
-import Nav from "./Nav";
-import { deleteCountry } from "../actions";
+import Nav from "../Nav";
+import { deleteCountry } from "../../actions";
 import queryString from "query-string";
 
 const mapStateToProps = state => ({

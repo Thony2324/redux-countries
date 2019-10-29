@@ -1,9 +1,9 @@
 import React from "react";
-import Nav from "./Nav";
+import Nav from "../Nav";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
-import { selectLangById } from "../selectors";
+import { selectLangById } from "../../selectors";
 
 const mapStateToProps = (state, ownProps) => {
   const urlParams = ownProps.location.search.substring(1);
