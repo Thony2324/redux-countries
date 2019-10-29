@@ -7,6 +7,7 @@ import NoMatch from "./NoMatch";
 import CountryForm from "./countries/CountryForm";
 import CountryCompare from "./countries/CountryCompare";
 import LangList from "./countries/LangList";
+import CountriesApi from "./countries-api/CountriesApi";
 
 class App extends React.Component {
   render() {
@@ -16,6 +17,7 @@ class App extends React.Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/languages" component={LangList} />
           <Route exact path="/countries" component={CountryList} />
+          <Route exact path="/countries-api" component={CountriesApi} />
           {/* 
           Bien faire attention à l'ordre des routes, sinon le router ne va pas bien les interpréter
           Par exemple : le router pourrait penser que add est un id donc la route doit être avant celle avec l'id, sinon il ne va pas l'interpréter correctement
