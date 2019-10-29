@@ -5,9 +5,7 @@ import { selectCountries } from "../selectors";
 import CountryItem from "./CountryItem";
 import Nav from "./Nav";
 import { deleteCountry } from "../actions";
-
-var tabToCompare = [];
-//var urlCountries = "";
+import queryString from "query-string";
 
 const mapStateToProps = state => ({
   countries: selectCountries(state)
@@ -22,43 +20,48 @@ class CountryList extends React.Component {
     countriesToCompare: []
   };
 
-  compareCountries = (e, countryId, countryName) => {
-    if (e.target.checked) {
-      tabToCompare.push({
-        id: countryId,
-        name: countryName
-      });
+  toggleCheckboxCountry = countrySlug => {
+    const stateCountriesToCompare = this.state.countriesToCompare;
+    if (!stateCountriesToCompare.includes(countrySlug)) {
       this.setState({
-        countriesToCompare: tabToCompare
+        countriesToCompare: [...stateCountriesToCompare, countrySlug] // permet de décomposer le tableau stateCountriesToCompare en élément de tableau
       });
     } else {
-      tabToCompare = tabToCompare.filter(item => item.id !== countryId);
       this.setState({
-        countriesToCompare: tabToCompare
+        countriesToCompare: stateCountriesToCompare.filter(slug => {
+          return slug !== countrySlug;
+        })
       });
     }
-    //console.log("tab to compare : ", tabToCompare);
-
-    // for (var i = 0; i < tabToCompare.length; i++) {
-    //   urlCountries = urlCountries + "item" + i + "=" + tabToCompare[i].id + "&";
-    // }
-    // console.log(urlCountries);
-
-    /////////// npm query string : use stringify pour generer une url et la passer au bouton compare : queryString.stringify({foo: [1, 2, 3]}) et utiliser .parse() pour generer un tableau à partir de la string;
   };
 
   render() {
+    const urlCompare = queryString.stringify({ s: this.state.countriesToCompare });
+
     return (
       <React.Fragment>
         <Nav currentRoute="countries" />
         <div className="uk-section uk-section-default">
           <div className="uk-container">
-            <h1 className="uk-heading-medium uk-heading-bullet uk-margin-xlarge-bottom">List of countries</h1>
-            <Link to="/countries/add" className="uk-button uk-button-primary uk-margin-large-bottom">
-              <span data-uk-icon="icon: plus; ratio: 0.8"></span> Add a country
-            </Link>
+            <h1 className="uk-heading-medium uk-heading-bullet uk-margin-large-bottom">
+              List of countries
+              <Link to="/countries/add" className="uk-button uk-button-primary uk-float-right uk-margin-top">
+                Add a country
+              </Link>
+            </h1>
+
+            <div className="uk-margin">
+              Check below to compare (max 4 countries) :{" "}
+              <span className="uk-badge">{this.state.countriesToCompare.length}</span>
+            </div>
+
             {this.props.countries.length === 0 ? (
-              <p>No countries !</p>
+              <div className="uk-alert-warning" data-uk-alert>
+                <p>
+                  There are no countries ! <br />
+                  Please add one.
+                </p>
+              </div>
             ) : (
               <ul className="uk-list uk-list-divider">
                 {this.props.countries.map(country => {
@@ -67,23 +70,36 @@ class CountryList extends React.Component {
                       key={country.id}
                       country={country}
                       handleDelete={this.props.deleteCountry}
-                      compare={this.compareCountries}
+                      toggleCheckbox={this.toggleCheckboxCountry}
                     />
                   );
                 })}
               </ul>
             )}
-            Countries to compare (max 3) : {this.state.countriesToCompare.length}
-            <ul>
-              {this.state.countriesToCompare &&
-                this.state.countriesToCompare.map((val, index) => {
-                  return <li key={index}>{val.name.toLowerCase()}</li>;
-                })}
-            </ul>
-            {this.state.countriesToCompare.length > 0 && this.state.countriesToCompare.length < 4 ? (
-              <Link to="/countries/compare" className="uk-button uk-button-primary">
-                <span data-uk-icon="icon: list; ratio: 0.8"></span> Compare
-              </Link>
+
+            <Link
+              to={`/countries/compare?${urlCompare}`}
+              className={
+                "uk-button uk-button-primary uk-margin-small-right " +
+                (this.state.countriesToCompare.length < 2 || this.state.countriesToCompare.length > 4
+                  ? "disabled-link"
+                  : "")
+              }>
+              Compare
+            </Link>
+
+            {this.state.countriesToCompare.length === 1 ? (
+              <div className="uk-alert-warning" data-uk-alert>
+                You must choose at least 2 countries to compare !
+              </div>
+            ) : (
+              ""
+            )}
+
+            {this.state.countriesToCompare.length > 4 ? (
+              <div className="uk-alert-warning" data-uk-alert>
+                You must choose max 4 countries to compare !
+              </div>
             ) : (
               ""
             )}

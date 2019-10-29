@@ -1,17 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Country = ({ country, handleDelete, compare }) => {
+const Country = ({ country, handleDelete, toggleCheckbox, selected }) => {
   return (
     <li>
       <input
         className="uk-checkbox uk-margin-small-right"
         type="checkbox"
-        onChange={e => compare(e, country.id, country.name)}
+        checked={selected}
+        onChange={() => {
+          toggleCheckbox(country.slug);
+        }}
       />
-      <strong>
-        {country.name} ({country.id})
-      </strong>
+      <strong>{country.name}</strong>
       <button
         className="btn-delete uk-button uk-button-link uk-float-right"
         data-uk-tooltip="title: Delete"

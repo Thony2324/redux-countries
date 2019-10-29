@@ -1,14 +1,13 @@
-//import cuid from "cuid";
-
 export const ADD_COUNTRY = "ADD_COUNTRY";
 export const EDIT_COUNTRY = "EDIT_COUNTRY";
 export const DELETE_COUNTRY = "DELETE_COUNTRY";
 
-export const addCountry = (countryId, countryName, countryCurrency, countryJetlag, countryVisa) => {
+export const addCountry = (countryId, countrySlug, countryName, countryCurrency, countryJetlag, countryVisa) => {
   return {
     type: ADD_COUNTRY,
     payload: {
       id: countryId,
+      slug: countrySlug,
       name: countryName,
       currency: countryCurrency,
       jetlag: countryJetlag,
@@ -17,11 +16,12 @@ export const addCountry = (countryId, countryName, countryCurrency, countryJetla
   };
 };
 
-export const editCountry = (countryId, countryName, countryCurrency, countryJetlag, countryVisa) => {
+export const editCountry = (countryId, countrySlug, countryName, countryCurrency, countryJetlag, countryVisa) => {
   return {
     type: EDIT_COUNTRY,
     payload: {
       id: countryId,
+      slug: countrySlug,
       name: countryName,
       currency: countryCurrency,
       jetlag: countryJetlag,

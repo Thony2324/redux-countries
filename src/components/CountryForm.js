@@ -24,6 +24,7 @@ class CountryForm extends React.Component {
       // Add
       this.state = {
         id: cuid.slug(),
+        slug: "",
         name: "",
         currency: "",
         jetlag: 0,
@@ -31,9 +32,10 @@ class CountryForm extends React.Component {
       };
     } else {
       // Edit
-      const { id, name, currency, jetlag, visa } = props.country[0];
+      const { id, slug, name, currency, jetlag, visa } = props.country[0];
       this.state = {
         id: id,
+        slug: slug,
         name: name,
         currency: currency,
         jetlag: jetlag,
@@ -48,11 +50,10 @@ class CountryForm extends React.Component {
         <Nav currentRoute="countries" />
         <div className="uk-section uk-section-default">
           <div className="uk-container">
-            <h1 className="uk-heading-medium uk-heading-bullet uk-margin-xlarge-bottom">
+            <h1 className="uk-heading-medium uk-heading-bullet uk-margin-large-bottom">
               {this.props.match.params.id !== undefined ? "Edit a country" : "Add a country"}
             </h1>
             <form>
-              <div className="uk-margin">{this.props.match.params.id}</div>
               <div className="uk-margin">
                 <input
                   type="text"
@@ -116,11 +117,10 @@ class CountryForm extends React.Component {
                 onClick={() => {
                   // UPDATE STORE REDUX WITH THE CURRENT STATE
                   if (this.props.match.params.id !== undefined) {
-                    //if (this.props.match.params.id !== undefined) {
                     // Edit
-                    //const id = slugify(this.state.name + "-" + cuid.slug());
                     this.props.editCountry(
                       this.props.match.params.id,
+                      slugify(this.state.name, { lower: true, remove: /[*+~.()'"!:@]/g }),
                       this.state.name,
                       this.state.currency,
                       this.state.jetlag,
@@ -128,15 +128,21 @@ class CountryForm extends React.Component {
                     );
                   } else {
                     // Add
-                    const id = slugify(this.state.name + "-" + cuid.slug(), { lower: true });
-                    this.props.addCountry(id, this.state.name, this.state.currency, this.state.jetlag, this.state.visa);
+                    this.props.addCountry(
+                      cuid.slug(),
+                      slugify(this.state.name, { lower: true, remove: /[*+~.()'"!:@]/g }),
+                      this.state.name,
+                      this.state.currency,
+                      this.state.jetlag,
+                      this.state.visa
+                    );
                   }
                   // Redirect to list
                   this.props.history.push("/countries");
                 }}>
                 {this.props.match.params.id !== undefined ? "Edit" : "Add"}
               </button>
-              <Link to="/countries" className="uk-button uk-button-secondary uk-margin-left">
+              <Link to="/countries" className="uk-button uk-button-default uk-margin-left">
                 Cancel
               </Link>
             </form>

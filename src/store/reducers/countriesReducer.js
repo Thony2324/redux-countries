@@ -1,39 +1,41 @@
-import cuid from "cuid";
-import slugify from "slugify";
 import { ADD_COUNTRY, EDIT_COUNTRY, DELETE_COUNTRY } from "../../actions";
 
-//const initialState = [];
 const initialState = [
   {
-    id: slugify("Ile Maurice-" + cuid.slug(), { lower: true }),
+    id: "ag56",
+    slug: "thailande",
     name: "Thailande",
     currency: "Baht",
     visa: false,
     jetlag: 4
   },
   {
-    id: slugify("Mexique-" + cuid.slug(), { lower: true }),
+    id: "ju87",
+    slug: "mexique",
     name: "Mexique",
     currency: "Pesos",
     visa: false,
     jetlag: 6
   },
   {
-    id: slugify("Martinique-" + cuid.slug(), { lower: true }),
+    id: "gc45",
+    slug: "martinique",
     name: "Martinique",
     currency: "Euro",
     visa: false,
     jetlag: 6
   },
   {
-    id: slugify("Brésil-" + cuid.slug(), { lower: true }),
+    id: "tn29",
+    slug: "bresil",
     name: "Brésil",
     currency: "Real",
     visa: false,
     jetlag: 5
   },
   {
-    id: slugify("Inde-" + cuid.slug(), { lower: true }),
+    id: "vb98",
+    slug: "inde",
     name: "Inde",
     currency: "Roupie",
     visa: true,
