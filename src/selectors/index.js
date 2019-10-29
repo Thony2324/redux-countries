@@ -12,13 +12,11 @@ export function getNbCountry(state) {
   return nbCountries;
 }
 
-// export function getInfosCountriesToCompare(state, tab) {
-//   //console.log("tab : ", tab);
-//   //console.log("state.countries : ", state.countries);
-//   tab.map(countryId => {
-//     //console.log(countryId);
-//     const infoCountry = state.countries.find(c => c.id === countryId);
-//     //console.log(infoCountry);
-//     return infoCountry;
-//   });
-// }
+export function selectLanguages(state) {
+  return state.languages;
+}
+
+export function selectLangById(state, id) {
+  const detailLang = state.languages.filter(c => c.id === id);
+  return detailLang[0].name;
+}

@@ -6,6 +6,7 @@ const initialState = [
     slug: "thailande",
     name: "Thailande",
     currency: "Baht",
+    language: "lm85",
     visa: false,
     jetlag: 4
   },
@@ -14,6 +15,7 @@ const initialState = [
     slug: "mexique",
     name: "Mexique",
     currency: "Pesos",
+    language: "lm53",
     visa: false,
     jetlag: 6
   },
@@ -22,6 +24,7 @@ const initialState = [
     slug: "martinique",
     name: "Martinique",
     currency: "Euro",
+    language: "lm90",
     visa: false,
     jetlag: 6
   },
@@ -30,6 +33,7 @@ const initialState = [
     slug: "bresil",
     name: "Brésil",
     currency: "Real",
+    language: "lm67",
     visa: false,
     jetlag: 5
   },
@@ -38,6 +42,7 @@ const initialState = [
     slug: "inde",
     name: "Inde",
     currency: "Roupie",
+    language: "lm49",
     visa: true,
     jetlag: 3
   }

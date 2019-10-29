@@ -1,34 +1,37 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { selectCountryById } from "../selectors";
+import { selectCountryById, selectLangById } from "../selectors";
 import { Redirect } from "react-router-dom";
 import Nav from "./Nav";
 
-const mapStateToProps = (state, ownProps) => ({
-  mycountry: selectCountryById(state, ownProps.match.params.id)
-});
+const mapStateToProps = (state, ownProps) => {
+  return {
+    currentCountry: selectCountryById(state, ownProps.match.params.id),
+    currentState: state
+  };
+};
 
-const CountryDetail = ({ mycountry }) => {
-  if (mycountry.length > 0) {
+const CountryDetail = ({ currentCountry, currentState }) => {
+  if (currentCountry.length > 0) {
     return (
       <React.Fragment>
         <Nav currentRoute="countries" />
         <div className="uk-section uk-section-default">
           <div className="uk-container">
-            <h1 className="uk-heading-medium uk-heading-bullet uk-margin-xlarge-bottom">{mycountry[0].name}</h1>
-            <div>
-              Id : {mycountry[0].id}
-              <br />
-              Slug : {mycountry[0].slug}
-              <br />
-              Currency : {mycountry[0].currency}
-              <br />
-              Jetlag : {mycountry[0].jetlag}h
-              <br />
-              Visa : {mycountry[0].visa ? "Oui" : "Non"}
+            <h1 className="uk-heading-medium uk-heading-bullet uk-margin-large-bottom">Detail country</h1>
+
+            <div className="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+              <h3 className="uk-card-title">{currentCountry[0].name}</h3>
+              <ul className="uk-list uk-list-bullet">
+                <li>Currency : {currentCountry[0].currency}</li>
+                <li>Language : {selectLangById(currentState, currentCountry[0].language)}</li>
+                <li>Jetlag : {currentCountry[0].jetlag}h</li>
+                <li>Visa : {currentCountry[0].visa ? "Oui" : "Non"}</li>
+              </ul>
             </div>
-            <Link to="/countries" className="uk-button uk-button-primary uk-margin-xlarge-top">
+
+            <Link to="/countries" className="uk-button uk-button-primary uk-margin-large-top">
               Back
             </Link>
           </div>
