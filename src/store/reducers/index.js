@@ -1,6 +1,8 @@
-import { combineReducers } from 'redux';
-import { countriesReducer } from './countriesReducer';
+import { combineReducers } from "redux";
+import { countriesReducer } from "./countriesReducer";
+import { languagesReducer } from "./languagesReducer";
 
 export const reducer = combineReducers({
-  countries: countriesReducer
+  countries: countriesReducer,
+  languages: languagesReducer
 });

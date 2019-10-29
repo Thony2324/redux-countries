@@ -3,6 +3,7 @@ import Nav from "./Nav";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
+import { selectLangById } from "../selectors";
 
 const mapStateToProps = (state, ownProps) => {
   const urlParams = ownProps.location.search.substring(1);
@@ -12,6 +13,7 @@ const mapStateToProps = (state, ownProps) => {
     idsToCompare = [idsToCompare];
   }
   return {
+    currentState: state,
     // TODO : faire un selector
     comparingCountries: idsToCompare
       .map(countrySlug => {
@@ -45,6 +47,12 @@ class CountryCompare extends React.Component {
                     <th>Currency</th>
                     {this.props.comparingCountries.map((country, index) => {
                       return <td key={index}>{country.currency}</td>;
+                    })}
+                  </tr>
+                  <tr>
+                    <th>Language</th>
+                    {this.props.comparingCountries.map((country, index) => {
+                      return <td key={index}>{selectLangById(this.props.currentState, country.language)}</td>;
                     })}
                   </tr>
                   <tr>

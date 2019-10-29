@@ -15,7 +15,7 @@ class Home extends React.Component {
         <div className="uk-section uk-section-default">
           <div className="uk-container">
             <h1 className="uk-heading-medium uk-heading-bullet uk-margin-large-bottom">Home</h1>
-            <div className="uk-tile uk-tile-muted uk-box-shadow-small uk-width-1-4 uk-text-center">
+            <div className="uk-tile uk-tile-default uk-box-shadow-small uk-width-1-4 uk-text-center">
               <p className="uk-h2">{this.props.nbCountries} countries</p>
             </div>
           </div>

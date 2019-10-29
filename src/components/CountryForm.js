@@ -1,14 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import Nav from "./Nav";
-import { selectCountryById } from "../selectors";
+import { selectCountryById, selectLanguages } from "../selectors";
 import { addCountry, editCountry } from "../actions";
 import cuid from "cuid";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 
 const mapStateToProps = (state, ownProps) => ({
-  country: selectCountryById(state, ownProps.match.params.id)
+  country: selectCountryById(state, ownProps.match.params.id),
+  languages: selectLanguages(state)
 });
 
 const mapDispatchToProps = {
@@ -27,17 +28,19 @@ class CountryForm extends React.Component {
         slug: "",
         name: "",
         currency: "",
-        jetlag: 0,
+        language: "",
+        jetlag: "",
         visa: false
       };
     } else {
       // Edit
-      const { id, slug, name, currency, jetlag, visa } = props.country[0];
+      const { id, slug, name, currency, language, jetlag, visa } = props.country[0];
       this.state = {
         id: id,
         slug: slug,
         name: name,
         currency: currency,
+        language: language,
         jetlag: jetlag,
         visa: visa
       };
@@ -55,60 +58,97 @@ class CountryForm extends React.Component {
             </h1>
             <form>
               <div className="uk-margin">
-                <input
-                  type="text"
-                  className="uk-input"
-                  placeholder="Enter name"
-                  value={this.state.name}
-                  onChange={e => {
-                    this.setState({
-                      name: e.target.value
-                    });
-                  }}
-                />
-              </div>
-
-              <div className="uk-margin">
-                <input
-                  type="text"
-                  className="uk-input"
-                  placeholder="Enter currency"
-                  value={this.state.currency}
-                  onChange={e => {
-                    this.setState({
-                      currency: e.target.value
-                    });
-                  }}
-                />
-              </div>
-
-              <div className="uk-margin">
-                <input
-                  type="text"
-                  className="uk-input"
-                  placeholder="Enter jetlag"
-                  value={this.state.jetlag}
-                  onChange={e => {
-                    this.setState({
-                      jetlag: e.target.value
-                    });
-                  }}
-                />
-              </div>
-              <div className="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-                <label>
+                <label className="uk-form-label">Name</label>
+                <div className="uk-form-controls">
                   <input
-                    className="uk-checkbox"
-                    type="checkbox"
-                    checked={this.state.visa}
+                    type="text"
+                    className="uk-input uk-form-width-large"
+                    placeholder="Name"
+                    value={this.state.name}
                     onChange={e => {
                       this.setState({
-                        visa: !this.state.visa
+                        name: e.target.value
                       });
                     }}
-                  />{" "}
-                  Visa
-                </label>
+                  />
+                </div>
+              </div>
+
+              <div className="uk-margin">
+                <label className="uk-form-label">Currency</label>
+                <div className="uk-form-controls">
+                  <input
+                    type="text"
+                    className="uk-input uk-form-width-large"
+                    placeholder="Currency"
+                    value={this.state.currency}
+                    onChange={e => {
+                      this.setState({
+                        currency: e.target.value
+                      });
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="uk-margin">
+                <label className="uk-form-label">Language</label>
+                <div className="uk-form-controls">
+                  <select
+                    className="uk-select uk-form-width-small"
+                    value={this.state.language}
+                    onChange={e => {
+                      this.setState({
+                        language: e.target.value
+                      });
+                    }}>
+                    {this.props.languages.map((lang, index) => {
+                      return (
+                        <option key={index} value={lang.id}>
+                          {lang.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
+
+              <div className="uk-margin">
+                <label className="uk-form-label">Jetlag</label>
+                <div className="uk-form-controls">
+                  {/* <select class="uk-select uk-form-width-xsmall">
+                    <option>-</option>
+                    <option>+</option>
+                  </select> */}
+                  <input
+                    type="text"
+                    className="uk-input uk-form-width-small"
+                    placeholder="Jetlag"
+                    value={this.state.jetlag}
+                    onChange={e => {
+                      this.setState({
+                        jetlag: e.target.value
+                      });
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="uk-margin xuk-grid-small xuk-child-width-auto xuk-grid">
+                <div className="uk-form-label">Visa</div>
+                <div className="uk-form-controls">
+                  <label>
+                    <input
+                      className="uk-checkbox"
+                      type="checkbox"
+                      checked={this.state.visa}
+                      onChange={e => {
+                        this.setState({
+                          visa: !this.state.visa
+                        });
+                      }}
+                    />
+                  </label>
+                </div>
               </div>
 
               <button
@@ -123,6 +163,7 @@ class CountryForm extends React.Component {
                       slugify(this.state.name, { lower: true, remove: /[*+~.()'"!:@]/g }),
                       this.state.name,
                       this.state.currency,
+                      this.state.language,
                       this.state.jetlag,
                       this.state.visa
                     );
@@ -133,6 +174,7 @@ class CountryForm extends React.Component {
                       slugify(this.state.name, { lower: true, remove: /[*+~.()'"!:@]/g }),
                       this.state.name,
                       this.state.currency,
+                      this.state.language,
                       this.state.jetlag,
                       this.state.visa
                     );
@@ -140,7 +182,7 @@ class CountryForm extends React.Component {
                   // Redirect to list
                   this.props.history.push("/countries");
                 }}>
-                {this.props.match.params.id !== undefined ? "Edit" : "Add"}
+                OK
               </button>
               <Link to="/countries" className="uk-button uk-button-default uk-margin-left">
                 Cancel
