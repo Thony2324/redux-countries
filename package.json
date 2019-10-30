@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "cuid": "^2.1.6",
-    "ky": "^0.15.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.8.3",
     "react": "^16.10.2",

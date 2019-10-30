@@ -1,5 +1,3 @@
-//import { ADD_COUNTRY, EDIT_COUNTRY, DELETE_COUNTRY } from "../../actions";
-
 const initialState = [
   {
     id: "lm90",
@@ -44,8 +42,6 @@ const initialState = [
 ];
 
 export const languagesReducer = (state = initialState, action) => {
-  //const { type, payload } = action;
-
   switch (action.type) {
     default:
       return state;
