@@ -15,6 +15,9 @@ const Nav = ({ currentRoute }) => {
           <li className={currentRoute === "countries" ? "uk-active" : ""}>
             <Link to="/countries">Countries</Link>
           </li>
+          <li className={currentRoute === "countries-api" ? "uk-active" : ""}>
+            <Link to="/countries-api">Countries API</Link>
+          </li>
         </ul>
       </div>
     </nav>
