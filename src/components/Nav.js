@@ -9,9 +9,9 @@ const Nav = ({ currentRoute }) => {
           <li className={currentRoute === "" ? "uk-active" : ""}>
             <Link to="/">Home</Link>
           </li>
-          <li className={currentRoute === "languages" ? "uk-active" : ""}>
+          {/* <li className={currentRoute === "languages" ? "uk-active" : ""}>
             <Link to="/languages">Languages</Link>
-          </li>
+          </li> */}
           <li className={currentRoute === "countries" ? "uk-active" : ""}>
             <Link to="/countries">Countries</Link>
           </li>

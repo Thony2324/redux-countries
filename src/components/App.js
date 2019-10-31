@@ -6,7 +6,7 @@ import CountryDetail from "./countries/CountryDetail";
 import NoMatch from "./NoMatch";
 import CountryForm from "./countries/CountryForm";
 import CountryCompare from "./countries/CountryCompare";
-import LangList from "./countries/LangList";
+//import LangList from "./countries/LangList";
 
 class App extends React.Component {
   render() {
@@ -14,7 +14,7 @@ class App extends React.Component {
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/languages" component={LangList} />
+          {/* <Route exact path="/languages" component={LangList} /> */}
           <Route exact path="/countries" component={CountryList} />
           {/* 
           Bien faire attention à l'ordre des routes, sinon le router ne va pas bien les interpréter
