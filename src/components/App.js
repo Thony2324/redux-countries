@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./Home";
+import Dashboard from "./Dashboard";
 import CountryList from "./countries/CountryList";
 import CountryDetail from "./countries/CountryDetail";
 import NoMatch from "./NoMatch";
@@ -15,7 +15,7 @@ class App extends React.Component {
     return (
       <Router>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Dashboard} />
           <Route exact path="/languages" component={LangList} />
           <Route path="/languages/add" component={LangForm} />
           <Route exact path="/countries" component={CountryList} />

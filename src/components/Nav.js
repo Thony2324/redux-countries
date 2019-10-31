@@ -7,7 +7,7 @@ const Nav = ({ currentRoute }) => {
       <div className="uk-navbar-left">
         <ul className="uk-navbar-nav">
           <li className={currentRoute === "" ? "uk-active" : ""}>
-            <Link to="/">Home</Link>
+            <Link to="/">Dashboard</Link>
           </li>
           <li className={currentRoute === "languages" ? "uk-active" : ""}>
             <Link to="/languages">Languages</Link>

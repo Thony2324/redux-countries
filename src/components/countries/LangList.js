@@ -21,7 +21,7 @@ class LangList extends React.Component {
         <div className="uk-section uk-section-default">
           <div className="uk-container">
             <h1 className="uk-heading-medium uk-heading-bullet uk-margin-large-bottom">
-              List of languages
+              Languages
               <Link to="/languages/add" className="uk-button uk-button-primary uk-float-right uk-margin-top">
                 Add a language
               </Link>

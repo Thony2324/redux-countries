@@ -44,7 +44,7 @@ class CountryList extends React.Component {
         <div className="uk-section uk-section-default">
           <div className="uk-container">
             <h1 className="uk-heading-medium uk-heading-bullet uk-margin-large-bottom">
-              List of countries
+              Compare countries
               <Link to="/countries/add" className="uk-button uk-button-primary uk-float-right uk-margin-top">
                 Add a country
               </Link>

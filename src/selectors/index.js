@@ -20,3 +20,8 @@ export function selectLangById(state, id) {
   const detailLang = state.languages.filter(c => c.id === id);
   return detailLang[0].name;
 }
+
+export function getNbLang(state) {
+  const nbLang = state.languages.length;
+  return nbLang;
+}

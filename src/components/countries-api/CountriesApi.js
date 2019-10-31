@@ -55,7 +55,7 @@ class CountriesApi extends React.Component {
         <Nav currentRoute="countries-api" />
         <div className="uk-section uk-section-default">
           <div className="uk-container">
-            <h1 className="uk-heading-medium uk-heading-bullet uk-margin-large-bottom">List of countries from API</h1>
+            <h1 className="uk-heading-medium uk-heading-bullet uk-margin-large-bottom">Countries infos API</h1>
             <div className="wrapper">
               <div className="col-left uk-background-muted">
                 {/* fonction anonyme immédiatement appelée */}
