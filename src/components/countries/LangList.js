@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { selectLanguages } from "../../selectors";
 import Nav from "../Nav";
+import { Link } from "react-router-dom";
 
 const mapStateToProps = state => ({
   languages: selectLanguages(state)
@@ -18,9 +19,9 @@ class LangList extends React.Component {
           <div className="uk-container">
             <h1 className="uk-heading-medium uk-heading-bullet uk-margin-large-bottom">
               List of languages
-              {/* <Link to="/languages/add" className="uk-button uk-button-primary uk-float-right uk-margin-top">
+              <Link to="/languages/add" className="uk-button uk-button-primary uk-float-right uk-margin-top">
                 Add a language
-              </Link> */}
+              </Link>
             </h1>
 
             {this.props.languages.length === 0 ? (
@@ -32,8 +33,8 @@ class LangList extends React.Component {
               </div>
             ) : (
               <ul className="uk-list uk-list-divider">
-                {this.props.languages.map(lang => {
-                  return <div key={lang.id}>{lang.name}</div>;
+                {this.props.languages.map((lang, index) => {
+                  return <li key={index}>{lang.langName}</li>;
                 })}
               </ul>
             )}

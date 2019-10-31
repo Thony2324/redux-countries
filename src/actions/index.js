@@ -1,6 +1,7 @@
 export const ADD_COUNTRY = "ADD_COUNTRY";
 export const EDIT_COUNTRY = "EDIT_COUNTRY";
 export const DELETE_COUNTRY = "DELETE_COUNTRY";
+export const ADD_LANG = "ADD_LANG";
 
 // Add country
 export const addCountry = (
@@ -55,5 +56,18 @@ export const deleteCountry = countryId => {
   return {
     type: DELETE_COUNTRY,
     payload: countryId
+  };
+};
+
+// Add lang
+export const addLang = (
+  // langId,
+  // langSlug,
+  values
+) => {
+  console.log("values : ", values);
+  return {
+    type: ADD_LANG,
+    payload: values
   };
 };
