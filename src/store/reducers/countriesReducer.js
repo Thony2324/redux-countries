@@ -67,7 +67,7 @@ export const countriesReducer = (state = initialState, action) => {
       stateCopy[index] = payload;
       return stateCopy;
     case DELETE_COUNTRY:
-      return state.filter(c => c.id !== payload);
+      return state.filter(country => country.id !== payload);
     default:
       return state;
   }

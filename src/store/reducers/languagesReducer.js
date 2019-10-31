@@ -1,55 +1,39 @@
-import { ADD_LANG } from "../../actions";
+import { ADD_LANG, DELETE_LANG } from "../../actions";
 
 const initialState = [
   {
-    langName: "Français"
+    id: "lm90",
+    name: "Français"
   },
   {
-    langName: "Anglais"
+    id: "lm21",
+    name: "Anglais"
+  },
+  {
+    id: "lm67",
+    name: "Portugais"
+  },
+  {
+    id: "lm53",
+    name: "Espagnol"
+  },
+  {
+    id: "lm85",
+    name: "Thaï"
+  },
+  {
+    id: "lm04",
+    name: "Chinois"
+  },
+  {
+    id: "lm49",
+    name: "Tamoul"
+  },
+  {
+    id: "lm19",
+    name: "Japonais"
   }
 ];
-// const initialState = [
-//   {
-//     id: "lm90",
-//     slug: "fr",
-//     name: "Français"
-//   },
-//   {
-//     id: "lm21",
-//     slug: "en",
-//     name: "Anglais"
-//   },
-//   {
-//     id: "lm67",
-//     slug: "pt",
-//     name: "Portugais"
-//   },
-//   {
-//     id: "lm53",
-//     slug: "es",
-//     name: "Espagnol"
-//   },
-//   {
-//     id: "lm85",
-//     slug: "th",
-//     name: "Thaï"
-//   },
-//   {
-//     id: "lm04",
-//     slug: "ch",
-//     name: "Chinois"
-//   },
-//   {
-//     id: "lm49",
-//     slug: "ta",
-//     name: "Tamoul"
-//   },
-//   {
-//     id: "lm19",
-//     slug: "ja",
-//     name: "Japonais"
-//   }
-// ];
 
 export const languagesReducer = (state = initialState, action) => {
   const { type, payload } = action;
@@ -57,6 +41,8 @@ export const languagesReducer = (state = initialState, action) => {
   switch (type) {
     case ADD_LANG:
       return [...state, payload];
+    case DELETE_LANG:
+      return state.filter(lang => lang.id !== payload);
     default:
       return state;
   }

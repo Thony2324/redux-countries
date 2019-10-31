@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { addLang } from "../../actions";
+import cuid from "cuid";
 
 const mapStateToProps = (state, ownProps) => ({});
 
@@ -13,17 +14,16 @@ const mapDispatchToProps = {
 };
 
 const validSchema = Yup.object().shape({
-  langName: Yup.string().required("This field is required !")
+  name: Yup.string().required("This field is required !")
 });
 
 class LangForm extends React.Component {
   state = {
-    langName: ""
+    id: cuid.slug(),
+    name: ""
   };
 
   handleSubmit = values => {
-    console.log("submit : ", values);
-    console.log("props : ", this.props);
     this.props.addLang(values);
     // Redirect to list
     this.props.history.push("/languages");
@@ -47,11 +47,9 @@ class LangForm extends React.Component {
                   <div className="uk-margin">
                     <label className="uk-form-label">Name</label>
                     <div className="uk-form-controls">
-                      <Field name="langName" placeholder="Name" className="uk-input uk-form-width-large" />
+                      <Field name="name" placeholder="Name" className="uk-input uk-form-width-large" />
                     </div>
-                    {errors.langName && touched.langName ? (
-                      <div className="uk-text-danger">{errors.langName}</div>
-                    ) : null}
+                    {errors.name && touched.name ? <div className="uk-text-danger">{errors.name}</div> : null}
                   </div>
                   <div className="uk-margin">
                     <button className="uk-button uk-button-primary" type="submit">

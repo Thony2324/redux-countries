@@ -3,12 +3,15 @@ import { connect } from "react-redux";
 import { selectLanguages } from "../../selectors";
 import Nav from "../Nav";
 import { Link } from "react-router-dom";
+import { deleteLang } from "../../actions";
 
 const mapStateToProps = state => ({
   languages: selectLanguages(state)
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  deleteLang
+};
 
 class LangList extends React.Component {
   render() {
@@ -34,7 +37,17 @@ class LangList extends React.Component {
             ) : (
               <ul className="uk-list uk-list-divider">
                 {this.props.languages.map((lang, index) => {
-                  return <li key={index}>{lang.langName}</li>;
+                  return (
+                    <li key={lang.id}>
+                      <strong>{lang.name}</strong>
+                      <button
+                        className="btn-delete uk-button uk-button-link uk-float-right"
+                        data-uk-tooltip="title: Delete"
+                        onClick={() => this.props.deleteLang(lang.id)}>
+                        <span data-uk-icon="icon: trash; ratio: 1"></span>
+                      </button>
+                    </li>
+                  );
                 })}
               </ul>
             )}
