@@ -6,12 +6,8 @@ import CountryDetail from "./countries/CountryDetail";
 import NoMatch from "./NoMatch";
 import CountryForm from "./countries/CountryForm";
 import CountryCompare from "./countries/CountryCompare";
-<<<<<<< HEAD
-import LangList from "./countries/LangList";
 import CountriesApi from "./countries-api/CountriesApi";
-=======
 //import LangList from "./countries/LangList";
->>>>>>> origin/master
 
 class App extends React.Component {
   render() {
